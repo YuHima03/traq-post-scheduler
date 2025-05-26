@@ -8,9 +8,14 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-        builder.Services.AddRazorComponents()
+        // Configure services.
+        {
+            var services = builder.Services;
+
+            services.AddRazorComponents()
             .AddInteractiveWebAssemblyComponents();
+
+        }
 
         var app = builder.Build();
 
