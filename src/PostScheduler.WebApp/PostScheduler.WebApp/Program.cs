@@ -15,6 +15,24 @@ public class Program
             services.AddRazorComponents()
             .AddInteractiveWebAssemblyComponents();
 
+            // Logging
+            services.AddLogging(lb =>
+            {
+                lb.AddSimpleConsole(options =>
+                {
+                    options.IncludeScopes = true;
+                    options.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Enabled;
+                });
+
+                if (builder.Environment.IsProduction())
+                {
+                    lb.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+                }
+                else if (builder.Environment.IsDevelopment())
+                {
+                    lb.AddFilter("Dakoq", LogLevel.Debug);
+                }
+            });
         }
 
         var app = builder.Build();
