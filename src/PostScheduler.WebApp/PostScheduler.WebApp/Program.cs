@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PostScheduler.WebApp.Components;
 
 namespace PostScheduler.WebApp;
@@ -15,6 +16,21 @@ public class Program
             services.AddRazorComponents()
             .AddInteractiveWebAssemblyComponents();
 
+            // Session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
+
+            // Cookie Authentication
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                });
         }
 
         var app = builder.Build();
