@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using PostScheduler.WebApp.Components;
+using System.Collections.Concurrent;
 
 namespace PostScheduler.WebApp;
 
@@ -15,6 +17,15 @@ public class Program
 
             services.AddRazorComponents()
             .AddInteractiveWebAssemblyComponents();
+
+            // Repository
+            services.AddKeyedSingleton<ConcurrentDictionary<Guid, Domain.Model.TraqAccessToken>>(Infrastructure.Repository.Repository.KeyAccessTokens);
+            services.AddDbContextFactory<Infrastructure.Repository.Repository>(options =>
+            {
+                options.UseMySQL("");
+                options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
+            });
+            services.AddSingleton<Domain.Repository.IRepositoryFactory, Infrastructure.Repository.RepositoryFactory>(sp => new(sp.GetRequiredService<IDbContextFactory<Infrastructure.Repository.Repository>>()));
 
             // Session
             services.AddDistributedMemoryCache();
