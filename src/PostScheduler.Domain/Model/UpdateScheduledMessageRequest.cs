@@ -4,7 +4,6 @@
         Optional<Guid> UserId,
         Optional<string> Message,
         Optional<bool> IsEmbeddingEnabled,
-        Optional<DateTimeOffset> ScheduledPostingTime,
-        Optional<PostedMessageAbstraction?> PostedMessage
+        Optional<DateTimeOffset> ScheduledPostingTime
         );
 }
