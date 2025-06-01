@@ -7,7 +7,7 @@
         string Message,
         bool IsEmbeddingEnabled,
         DateTimeOffset ScheduledPostingTime,
-        PostedMessageAbstraction? PostedMessage,
+        PostResult[] PostResults,
         DateTimeOffset CreatedAt,
         DateTimeOffset UpdatedAt
         );
