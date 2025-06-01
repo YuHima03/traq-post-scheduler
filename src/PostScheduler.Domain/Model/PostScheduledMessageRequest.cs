@@ -4,7 +4,6 @@
         Guid UserId,
         string Message,
         bool IsEmbeddingEnabled,
-        DateTimeOffset ScheduledPostingTime,
-        PostedMessageAbstraction? PostedMessage
+        DateTimeOffset ScheduledPostingTime
         );
 }
