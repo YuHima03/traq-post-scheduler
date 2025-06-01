@@ -5,5 +5,13 @@
         Optional<string> Message,
         Optional<bool> IsEmbeddingEnabled,
         Optional<DateTimeOffset> ScheduledPostingTime
+        )
+    {
+        public static readonly UpdateScheduledMessageRequest Empty = new(
+            Optional<Guid>.None,
+            Optional<string>.None,
+            Optional<bool>.None,
+            Optional<DateTimeOffset>.None
         );
+    }
 }
